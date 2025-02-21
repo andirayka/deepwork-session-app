@@ -1,4 +1,5 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { activateKeepAwakeAsync, deactivateKeepAwake } from 'expo-keep-awake';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { SafeAreaView, Text, View, Pressable } from 'react-native';
@@ -15,8 +16,12 @@ export default function App() {
   });
 
   useEffect(() => {
-    if (!targetTime) return;
+    if (!targetTime) {
+      deactivateKeepAwake();
+      return;
+    }
 
+    activateKeepAwakeAsync();
     const timer = setInterval(() => {
       const now = new Date();
       const difference = targetTime.getTime() - now.getTime();
@@ -25,6 +30,7 @@ export default function App() {
         clearInterval(timer);
         setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
         setTargetTime(null);
+        deactivateKeepAwake();
         return;
       }
 
@@ -72,6 +78,18 @@ export default function App() {
             {targetTime ? 'Change Time' : 'Set Timer'}
           </Text>
         </Pressable>
+
+        {targetTime && (
+          <Pressable
+            onPress={() => {
+              setTargetTime(null);
+              setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
+              deactivateKeepAwake();
+            }}
+            className="mt-4 rounded-xl bg-red-600 px-8 py-4 shadow-lg active:bg-red-700">
+            <Text className="text-lg font-semibold text-white">Stop</Text>
+          </Pressable>
+        )}
 
         {showPicker && (
           <DateTimePicker
