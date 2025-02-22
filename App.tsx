@@ -150,7 +150,7 @@ export default function App() {
           use12HourPicker
         />
       </View>
-      <StatusBar style="light" />
+      <StatusBar hidden />
     </SafeAreaView>
   );
 }
