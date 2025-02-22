@@ -1384,13 +1384,6 @@
   resolved "https://registry.yarnpkg.com/@pkgr/core/-/core-0.1.1.tgz#1ec17e2edbec25c8306d424ecfbf13c7de1aaa31"
   integrity sha512-cq8o4cWH0ibXh9VGi5P20Tu9XF/0fFXl9EUinr9QfTM7a7p0oTA4iJRCQWppXR1Pg8dSM0UCItCkPwsk9qWWYA==
 
-"@react-native-community/datetimepicker@8.2.0":
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-8.2.0.tgz#f62ac4fc12bd527fbbe93934e6c1cfbb7ba570f3"
-  integrity sha512-qrUPhiBvKGuG9Y+vOqsc56RPFcHa1SU2qbAMT0hfGkoFIj3FodE0VuPVrEa8fgy7kcD5NQmkZIKgHOBLV0+hWg==
-  dependencies:
-    invariant "^2.2.4"
-
 "@react-native/assets-registry@0.76.7":
   version "0.76.7"
   resolved "https://registry.yarnpkg.com/@react-native/assets-registry/-/assets-registry-0.76.7.tgz#b9a82d67826edebeb0537393ad984694e8b82395"
@@ -3483,6 +3476,11 @@ expo-asset@~11.0.4:
     invariant "^2.2.4"
     md5-file "^3.2.3"
 
+expo-av@~15.0.2:
+  version "15.0.2"
+  resolved "https://registry.yarnpkg.com/expo-av/-/expo-av-15.0.2.tgz#65bb08658a7fe3a67aa47da614abbfae9adb684e"
+  integrity sha512-AHIHXdqLgK1dfHZF0JzX3YSVySGMrWn9QtPzaVjw54FAzvXfMt4sIoq4qRL/9XWCP9+ICcCs/u3EcvmxQjrfcA==
+
 expo-constants@~17.0.7:
   version "17.0.7"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-17.0.7.tgz#630d42ec7d142065aeb75958becb9a27e0907d24"
@@ -3505,10 +3503,20 @@ expo-font@~13.0.4:
   dependencies:
     fontfaceobserver "^2.1.0"
 
+expo-haptics@~14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/expo-haptics/-/expo-haptics-14.0.1.tgz#ff4ead605e33f1917e615c9328af7ac1c34892dc"
+  integrity sha512-V81FZ7xRUfqM6uSI6FA1KnZ+QpEKnISqafob/xEfcx1ymwhm4V3snuLWWFjmAz+XaZQTqlYa8z3QbqEXz7G63w==
+
 expo-keep-awake@~14.0.3:
   version "14.0.3"
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-14.0.3.tgz#74c91b68effdb6969bc1e8371621aad90386cfbf"
   integrity sha512-6Jh94G6NvTZfuLnm2vwIpKe3GdOiVBuISl7FI8GqN0/9UOg9E0WXXp5cDcfAG8bn80RfgLJS8P7EPUGTZyOvhg==
+
+expo-linear-gradient@~14.0.2:
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-14.0.2.tgz#51fb266d1c7a38349077d243e383cc3d69d4356b"
+  integrity sha512-nvac1sPUfFFJ4mY25UkvubpUV/olrBH+uQw5k+beqSvQaVQiUfFtYzfRr+6HhYBNb4AEsOtpsCRkpDww3M2iGQ==
 
 expo-modules-autolinking@2.0.8:
   version "2.0.8"
@@ -6068,6 +6076,11 @@ react-native-safe-area-context@4.12.0:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-4.12.0.tgz#17868522a55bbc6757418c94a1b4abdda6b045d9"
   integrity sha512-ukk5PxcF4p3yu6qMZcmeiZgowhb5AsKRnil54YFUUAXVIS7PJcMHGGC+q44fCiBg44/1AJk5njGMez1m9H0BVQ==
+
+react-native-timer-picker@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-timer-picker/-/react-native-timer-picker-2.1.0.tgz#f1ad4f9ffa528a99f817c2d0424aea775b26c57e"
+  integrity sha512-pK/LWiB0jLW8Put1NfQG3QYcQf5L0HoF4zSVh9k1vAX6ov6Bj4RfW8HHUZJEic7f8OVOUU+kOJT4c1NRhD2fGw==
 
 react-native@0.76.7:
   version "0.76.7"
