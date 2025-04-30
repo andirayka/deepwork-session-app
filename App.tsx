@@ -19,7 +19,7 @@ export default function App() {
   // Controls the visibility of the time picker modal
   const [showPicker, setShowPicker] = useState(false);
   // Tracks the remaining time in hours, minutes, and seconds
-  const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({ 
+  const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
     hours: 0,
     minutes: 0,
     seconds: 0,
@@ -135,7 +135,6 @@ export default function App() {
           modalTitle="Select Time"
           onCancel={() => {
             setShowPicker(false);
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
           }}
           closeOnOverlayPress
           Audio={Audio}
@@ -148,6 +147,12 @@ export default function App() {
             overlayOpacity: 0.7,
           }}
           use12HourPicker
+          hideSeconds
+          initialValue={{
+            hours: new Date().getHours() + 1 > 23 ? 0 : new Date().getHours() + 1,
+            minutes: 0,
+            seconds: 0,
+          }}
         />
       </View>
       <StatusBar hidden />
