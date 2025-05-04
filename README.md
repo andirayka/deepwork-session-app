@@ -1,86 +1,71 @@
 # Deep Work Session App
 
-A minimalist mobile application designed to help you maintain focus during deep work sessions. Built with React Native and Expo.
+A minimalist mobile application designed to help you maintain focus during deep work sessions. Built with React Native and Expo, this app provides a clean interface for setting and tracking focused work periods.
 
 ## Features
 
-- **Countdown Timer**: Set and track your deep work sessions with a precise countdown timer
-- **Time Selection**: Intuitive time picker interface with 12-hour format
-- **Screen Wake Lock**: Prevents screen from sleeping during active sessions
-- **Haptic Feedback**: Provides tactile feedback for user interactions
-- **Dark Theme**: Eye-friendly dark interface for better focus
-- **Modern UI**: Clean and distraction-free design with smooth animations
+- **Intuitive Timer Interface**: Simple and distraction-free design for setting work session durations
+- **Keep Screen Awake**: Automatically keeps your device awake during active sessions
+- **Audio & Haptic Feedback**: Pleasant notification sounds and haptic feedback when sessions complete
+- **Dark Theme**: Easy on the eyes with a carefully designed dark interface
 
-## Technical Implementation
+## Tech Stack
 
-### Core Technologies
+- **React Native**: Core framework for cross-platform mobile development
+- **Expo**: Development platform for easy building and deployment
+- **NativeWind**: Utility-first CSS framework for styling
+- **TypeScript**: For type-safe code and better development experience
 
-- React Native with Expo
-- TypeScript for type safety
-- NativeWind (TailwindCSS) for styling
-- React Native Timer Picker for time selection
+## Getting Started
 
-### Key Components
+### Prerequisites
 
-#### Timer Management
-- Uses React's `useState` and `useEffect` hooks for timer state management
-- Implements precise time calculations using JavaScript's `Date` object
-- Handles time overflow by automatically scheduling for next day if selected time has passed
+- Node.js (v10.7.0 or later)
+- npm (included with Node.js)
+- Expo CLI
+- iOS Simulator (for iOS) or Android Emulator (for Android)
 
-#### Screen Wake Lock
-- Utilizes `expo-keep-awake` to prevent screen sleep during active sessions
-- Automatically manages wake lock state based on timer status
+### Installation
 
-#### User Interface
-- Implements haptic feedback using `expo-haptics` for better user experience
-- Uses `SafeAreaView` for proper layout on different devices
-- Responsive design with TailwindCSS classes
+1. Clone the repository:
 
-## Development Setup
+   ```bash
+   git clone [repository-url]
+   cd deepwork-session-app
+   ```
 
-1. Install dependencies:
-```bash
-yarn install
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm start
+   ```
+
+4. Follow the Expo CLI instructions to run the app on your preferred platform (iOS/Android)
+
+## Development
+
+### Available Scripts
+
+- `npm start`: Start the Expo development server
+- `npm run ios`: Run the app in iOS simulator
+- `npm run android`: Run the app in Android emulator
+- `npm run lint`: Run ESLint for code quality checks
+- `npm run format`: Format code using ESLint and Prettier
+
+### Project Structure
+
 ```
-
-2. Start the development server:
-```bash
-yarn start
-```
-
-3. Run on iOS/Android:
-```bash
-# For iOS
-yarn ios
-
-# For Android
-yarn android
-```
-
-## Project Structure
-
-```
+deepwork-session-app/
 ├── App.tsx              # Main application component
-├── assets/              # App icons and images
-├── global.css           # Global styles
-├── tailwind.config.js   # TailwindCSS configuration
-└── package.json         # Project dependencies and scripts
+├── assets/             # Images, fonts, and other static files
+├── global.css          # Global styles
+├── app.json            # Expo configuration
+├── package.json        # Dependencies and scripts
+└── tailwind.config.js  # TailwindCSS configuration
 ```
-
-## Dependencies
-
-- `expo`: ^52.0.35
-- `expo-keep-awake`: ~14.0.3
-- `expo-status-bar`: ~2.0.1
-- `nativewind`: latest
-- `react`: 18.3.1
-- `react-native`: 0.76.7
-- `react-native-timer-picker`: ^2.1.0
-
-## Contributing
-
-Feel free to submit issues and enhancement requests.
-
-## License
-
-This project is licensed under the MIT License.
