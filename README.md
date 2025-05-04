@@ -7,6 +7,7 @@ A minimalist mobile application designed to help you maintain focus during deep 
 - **Intuitive Timer Interface**: Simple and distraction-free design for setting work session durations
 - **Keep Screen Awake**: Automatically keeps your device awake during active sessions
 - **Audio & Haptic Feedback**: Pleasant notification sounds and haptic feedback when sessions complete
+- **Persistent Alarm**: Repeating alarm that continues until manually stopped, ensuring you never miss the end of a session
 - **Dark Theme**: Easy on the eyes with a carefully designed dark interface
 
 ## Tech Stack

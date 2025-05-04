@@ -21,6 +21,10 @@ export default function App() {
   const [showPicker, setShowPicker] = useState(false);
   // Reference to the sound object
   const soundRef = useRef<any>(null);
+  // Tracks if the alarm is currently playing
+  const [isAlarmActive, setIsAlarmActive] = useState(false);
+  // Reference to the alarm interval
+  const alarmIntervalRef = useRef<NodeJS.Timeout | null>(null);
   // Tracks the remaining time in hours, minutes, and seconds
   const [timeLeft, setTimeLeft] = useState<{ hours: number; minutes: number; seconds: number }>({
     hours: 0,
@@ -33,21 +37,45 @@ export default function App() {
    */
   useEffect(() => {
     return () => {
-      // Unload sound when component unmounts
+      // Unload sound and clear intervals when component unmounts
       if (soundRef.current) {
         soundRef.current.release();
+      }
+      if (alarmIntervalRef.current) {
+        clearInterval(alarmIntervalRef.current);
       }
     };
   }, []);
 
   /**
-   * Plays the notification sound
+   * Stops the repeating alarm if it's active
+   */
+  const stopAlarm = () => {
+    if (alarmIntervalRef.current) {
+      clearInterval(alarmIntervalRef.current);
+      alarmIntervalRef.current = null;
+    }
+
+    if (soundRef.current) {
+      soundRef.current.release();
+      soundRef.current = null;
+    }
+
+    setIsAlarmActive(false);
+  };
+
+  /**
+   * Plays the notification sound once or repeatedly
    */
   const playNotificationSound = async () => {
     try {
-      // Unload any existing sound
+      // Set alarm as active
+      setIsAlarmActive(true);
+
+      // Release previous sound if exists
       if (soundRef.current) {
         await soundRef.current.release();
+        soundRef.current = null;
       }
 
       // Use the default alarm sound
@@ -57,11 +85,35 @@ export default function App() {
       const player = createAudioPlayer(soundSource);
       soundRef.current = player;
 
-      // Play the sound
+      // Play the sound immediately
       player.play();
 
       // Haptic feedback
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+
+      // Clear any existing interval
+      if (alarmIntervalRef.current) {
+        clearInterval(alarmIntervalRef.current);
+      }
+
+      // Set up repeating interval to play sound again
+      alarmIntervalRef.current = setInterval(async () => {
+        try {
+          // Always play the sound again after the interval
+          if (soundRef.current) {
+            await soundRef.current.play();
+          } else {
+            // If sound reference is lost, recreate it
+            const newPlayer = createAudioPlayer(soundSource);
+            soundRef.current = newPlayer;
+            newPlayer.play();
+          }
+          // Haptic feedback on each repeat
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+        } catch (intervalError) {
+          console.error('Error in alarm interval:', intervalError);
+        }
+      }, 2000); // Check more frequently (every 2 seconds)
     } catch (error) {
       console.error('Error playing sound:', error);
     }
@@ -88,9 +140,9 @@ export default function App() {
         clearInterval(timer);
         setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
         setTargetTime(null);
-        deactivateKeepAwake();
+        // Keep device awake while alarm is playing
 
-        // Play notification sound when timer ends
+        // Play repeating notification sound when timer ends
         playNotificationSound();
         return;
       }
@@ -147,7 +199,7 @@ export default function App() {
         {/* Control buttons */}
         <View className={`flex-row gap-4 ${targetTime ? 'mt-8' : 'mt-12'}`}>
           {/* Set Time button - shown when timer is not running */}
-          {!targetTime && (
+          {!targetTime && !isAlarmActive && (
             <>
               <Pressable
                 onPress={() => setShowPicker(true)}
@@ -157,12 +209,13 @@ export default function App() {
             </>
           )}
 
-          {/* Stop button - shown when timer is running */}
-          {targetTime && (
+          {/* Stop button - shown when timer is running or alarm is active */}
+          {(targetTime || isAlarmActive) && (
             <Pressable
               onPress={() => {
                 setTargetTime(null);
                 setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
+                stopAlarm();
                 deactivateKeepAwake();
               }}
               className="rounded-xl bg-red-700 px-8 py-4 shadow-lg active:bg-red-800">
