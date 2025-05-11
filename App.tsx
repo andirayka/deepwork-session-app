@@ -81,12 +81,20 @@ export default function App() {
       // Use the default alarm sound
       const soundSource = require('./assets/default-alarm.mp3');
 
-      // Create a new sound object
-      const player = createAudioPlayer(soundSource);
-      soundRef.current = player;
+      // Function to play a single instance of the sound
+      const playSingleSound = async () => {
+        try {
+          const player = createAudioPlayer(soundSource);
+          await player.play();
+          // Keep the reference to release it later
+          soundRef.current = player;
+        } catch (error) {
+          console.error('Error playing sound:', error);
+        }
+      };
 
-      // Play the sound immediately
-      player.play();
+      // Play the first sound immediately
+      await playSingleSound();
 
       // Haptic feedback
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -96,26 +104,19 @@ export default function App() {
         clearInterval(alarmIntervalRef.current);
       }
 
-      // Set up repeating interval to play sound again
+      // Set up interval to play sound and provide haptic feedback
       alarmIntervalRef.current = setInterval(async () => {
-        try {
-          // Always play the sound again after the interval
-          if (soundRef.current) {
-            await soundRef.current.play();
-          } else {
-            // If sound reference is lost, recreate it
-            const newPlayer = createAudioPlayer(soundSource);
-            soundRef.current = newPlayer;
-            newPlayer.play();
-          }
-          // Haptic feedback on each repeat
-          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
-        } catch (intervalError) {
-          console.error('Error in alarm interval:', intervalError);
+        // Release the previous sound
+        if (soundRef.current) {
+          await soundRef.current.release();
         }
-      }, 2000); // Check more frequently (every 2 seconds)
+        // Play new sound
+        await playSingleSound();
+        // Haptic feedback
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+      }, 2000);
     } catch (error) {
-      console.error('Error playing sound:', error);
+      console.error('Error in playNotificationSound:', error);
     }
   };
 
