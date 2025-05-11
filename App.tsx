@@ -200,13 +200,11 @@ export default function App() {
         <View className={`flex-row gap-4 ${targetTime ? 'mt-8' : 'mt-12'}`}>
           {/* Set Time button - shown when timer is not running */}
           {!targetTime && !isAlarmActive && (
-            <>
-              <Pressable
-                onPress={() => setShowPicker(true)}
-                className="rounded-xl bg-blue-700 px-8 py-4 shadow-lg active:bg-blue-800">
-                <Text className="text-lg font-semibold text-gray-100">Set Time</Text>
-              </Pressable>
-            </>
+            <Pressable
+              onPress={() => setShowPicker(true)}
+              className="rounded-xl bg-blue-700 px-8 py-4 shadow-lg active:bg-blue-800">
+              <Text className="text-lg font-semibold text-gray-100">Set Time</Text>
+            </Pressable>
           )}
 
           {/* Stop button - shown when timer is running or alarm is active */}
